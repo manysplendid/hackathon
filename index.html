@@ -1,0 +1,984 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>多彩水淨0-多彩多資水蓋先</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="./lib/leaflet_1.8/leaflet.css" rel="stylesheet" />
+    <link href="lib/leaflet_Basemaps/L.Control.Basemaps.css" rel="stylesheet" />
+    <link rel="stylesheet"
+          href="./Content/bootstrap.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat"
+          rel="stylesheet" />
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="./Content/styles.css" />
+    <link href="lib/fontawesome-free-6.1.2-web/css/all.min.css" rel="stylesheet" />
+    <link href="lib/leaflet-locatecontrol/L.Control.Locate.min.css" rel="stylesheet" />
+
+    <style>
+        .div-image {
+            width: 30px;
+            height: 30px;
+        }
+
+        .btn-outline-light:hover {
+            background-color: #76acdb;
+        }
+
+        .bg-blue-MIT {
+            background-color: #3869b8;
+        }
+
+        hover {
+            color: aqua;
+        }
+
+        .bg-yellow {
+            background-color: yellow;
+        }
+
+        /*Legend specific*/
+        .legend {
+            font: 14px Arial, Helvetica, sans-serif;
+            background: white;
+            background: rgba(255, 255, 255, 0.8);
+            /*box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);*/
+            /*border-radius: 5px;*/
+            line-height: 24px;
+            color: #555;
+        }
+
+            .legend h4 {
+                text-align: center;
+                font-size: 16px;
+                margin: 2px 12px 8px;
+                color: #777;
+            }
+
+        .ex-css-box {
+            position: relative;
+        }
+
+        .z-index {
+            z-index: 2000;
+        }
+
+        .bg-blue {
+            background-color: #2497e3;
+        }
+
+        .bubble {
+            background: red;
+            color: white;
+            padding: 3px 10px;
+            position: absolute;
+            bottom: 20px;
+            border-radius: 4px;
+            left: 0%;
+            transform: translateX(-50%);
+            opacity: 0.5;
+        }
+
+            .bubble::after {
+                border-color: red transparent transparent transparent;
+                border-style: solid solid solid solid;
+                /* 設定邊框大小可拼湊出任意形狀的三角形 */
+                border-width: 4px 4px 0 4px;
+                bottom: -4px;
+                left: 42%;
+                /* 必須指定，才能顯示內容 */
+                content: "";
+                height: 0px;
+                width: 0px;
+                /* 必須指定，否則會變梯形 */
+                position: absolute;
+            }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            margin: 10px 0;
+            width: 100%;
+            align-content: end;
+        }
+
+            input[type=range]:focus {
+                outline: none;
+            }
+
+            input[type=range]::-webkit-slider-runnable-track {
+                width: 100%;
+                height: 5px;
+                cursor: pointer;
+                animate: 0.2s;
+                box-shadow: 0px 0px 0px #000000;
+                background: #2497E3;
+                border-radius: 1px;
+                border: 0px solid #000000;
+            }
+
+            input[type=range]::-webkit-slider-thumb {
+                box-shadow: 0px 0px 0px #000000;
+                border: 1px solid #2497E3;
+                height: 18px;
+                width: 18px;
+                border-radius: 25px;
+                background: #A1D0FF;
+                cursor: pointer;
+                -webkit-appearance: none;
+                margin-top: -7px;
+            }
+
+            input[type=range]:focus::-webkit-slider-runnable-track {
+                background: #2497E3;
+            }
+
+            input[type=range]::-moz-range-track {
+                width: 100%;
+                height: 5px;
+                cursor: pointer;
+                animate: 0.2s;
+                box-shadow: 0px 0px 0px #000000;
+                background: #2497E3;
+                border-radius: 1px;
+                border: 0px solid #000000;
+            }
+
+            input[type=range]::-moz-range-thumb {
+                box-shadow: 0px 0px 0px #000000;
+                border: 1px solid #2497E3;
+                height: 18px;
+                width: 18px;
+                border-radius: 25px;
+                background: #A1D0FF;
+                cursor: pointer;
+            }
+
+            input[type=range]::-ms-track {
+                width: 100%;
+                height: 5px;
+                cursor: pointer;
+                animate: 0.2s;
+                background: transparent;
+                border-color: transparent;
+                color: transparent;
+            }
+
+            input[type=range]::-ms-fill-lower {
+                background: #2497E3;
+                border: 0px solid #000000;
+                border-radius: 2px;
+                box-shadow: 0px 0px 0px #000000;
+            }
+
+            input[type=range]::-ms-fill-upper {
+                background: #2497E3;
+                border: 0px solid #000000;
+                border-radius: 2px;
+                box-shadow: 0px 0px 0px #000000;
+            }
+
+            input[type=range]::-ms-thumb {
+                margin-top: 1px;
+                box-shadow: 0px 0px 0px #000000;
+                border: 1px solid #2497E3;
+                height: 18px;
+                width: 18px;
+                border-radius: 25px;
+                background: #A1D0FF;
+                cursor: pointer;
+            }
+
+            input[type=range]:focus::-ms-fill-lower {
+                background: #2497E3;
+            }
+
+            input[type=range]:focus::-ms-fill-upper {
+                background: #2497E3;
+            }
+
+        .range-wrap {
+            position: absolute;
+            width: 87%;
+            bottom: 15px;
+            left: 2%;
+        }
+
+        btn-outline-primary:hover, btn-outline-primary:active {
+            background-color: #2497e3;
+        }
+    </style>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-blue-MIT" aria-label="Fourth navbar example">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12"><a class="navbar-brand fw-bold" href="#">多彩水淨0-多采多資水蓋鮮</a></div>
+                <div class="col-12"><small id="text-timenow" class="text-white fw-bold"></small><br /><small class="text-white fw-bold d-none">瀏覽人數：20人</small></div>
+
+            </div>
+        </div>
+    </nav>
+
+    <div id="wrapper">
+        <div class="content-area">
+            <div class="container-fluid ">
+                <div class="main">
+
+                    <div class="row mt-0 g-2">
+
+                        <div class="col-md-2">
+
+                            <div class="row row-cols-2 row-cols-md-3 g-2">
+                                <div class="col-6 col-md-12">
+                                    <div class="box shadow h-100 pt-2 pb-2">
+                                        <div id="text-temperature" class="text-center">
+                                            <strong class="h3">資料時間</strong>
+                                            <br /><h5 id="text-dateTime"></h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-12">
+                                    <div class="box shadow h-100 pt-2 pb-2">
+                                        <div class="text-center">
+                                            <strong class="h3">可能發生死魚河段</strong>
+                                            <br /><h5 id="text-fish">--</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-12">
+                                    <div class="box shadow h-100 pt-2 pb-2">
+                                        <div class="text-center">
+                                            <strong class="h3">異味影響</strong>
+                                            <br /><h5 id="text-warningVillages">--</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-12">
+                                    <div class="box shadow h-100 pt-2 pb-2">
+                                        <div class="text-center">
+                                            <strong class="h3">不建議遊憩</strong>
+                                            <br /><h5 id="text-park">--</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-12 d-none">
+                                    <div class="box shadow h-100 pt-2 pb-2">
+                                        <div class="text-center">
+                                            <strong class="h3">斷面</strong>
+                                            <br /><select class="border-0 h5 text-center fw-bold text-black-50" id="select-section"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-4 col-md-12 d-none">
+                                    <div class="box shadow h-100 pt-2 pb-2">
+                                        <div id="text-temperature" class="text-center">
+                                            <strong class="h3">生物需氧量(BOD)</strong>
+                                            <br /><h5 id="text-BOD">5</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4 col-md-12 d-none">
+                                    <div class="box shadow h-100 pt-2 pb-2">
+                                        <div id="text-temperature" class="text-center">
+                                            <strong class="h3">溶氧量(DO)</strong>
+                                            <br /><h5 id="text-DO">5</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4 col-md-12 d-none">
+                                    <div class="box shadow h-100 pt-2 pb-2">
+                                        <div id="text-temperature" class="text-center">
+                                            <strong class="h3">河川污染指數(RPI)</strong>
+                                            <br /><h5 id="text-RPI">5.25</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="box shadow h-100">
+                                <div id="map-view" class="ex-css-box" style="height: 600px">
+                                    <div class="range-wrap z-index" style="">
+                                        <input type="range" id="formControlRange" class="form-control-range p-0 m-0" min="0" max="255" step="1" value="0">
+                                        <output class="bubble z-index"></output>
+                                    </div>
+
+
+                                    <!--<input type="range" class="form-control-range p-0 m-0 z-index " id="formControlRange" min="0" max="255" step="1" value="0" style="position:absolute;bottom:20px;width:98%;">
+                                    <output class="bubble z-index"></output>-->
+                                    <div class="d-grid gap-2 d-md-block z-index" style="position:absolute;bottom:3%;right:1%">
+                                        <button class="btn btn-info bg-blue btn-sm text-white shadow" type="button" id="btn-run">播放</button>
+                                        <button class="btn btn-info bg-blue btn-sm text-white shadow" type="button" id="btn-stop">停止</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="Scripts/jquery-3.6.0.min.js"></script>
+
+    <script src="./Scripts/bootstrap.min.js"></script>
+    <script src="./Scripts/bootstrap.bundle.min.js"></script>
+    <script src="./lib/leaflet_1.8/leaflet.js"></script>
+
+    <script src="./lib/leaflet_1.8/leaflet.canvas-markers.js"></script>
+    <script src="./lib/leaflet_1.8/L.LabelTextCollision.js"></script>
+    <script src="./lib/leaflet_Basemaps/L.Control.Basemaps-min.js"></script>
+
+    <script src="./lib/leaflet-locatecontrol/L.Control.Locate.min.js"></script>
+    <!-- Leaflet-KMZ -->
+    <script src="https://unpkg.com/leaflet-kmz@latest/dist/leaflet-kmz.js"></script>
+    <script src='https://unpkg.com/@turf/turf/turf.min.js'></script>
+    <script src="lib/proj4js/proj4js.js"></script>
+    <script src="lib/proj4js/TransCoord.js"></script>
+    <script src="lib/proj4js/projCode/merc.js"></script>
+    <script src="lib/proj4js/projCode/tmerc.js"></script>
+
+    <script src="./base/autoStations.js"></script>
+    <script src="./base/sortSections.js"></script>
+    <script src="./base/interceptstation.js"></script>
+    <script src="./base/north.js"></script>
+    <script src="./base/riverparks_TP.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <!-- installing few libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.min.js"></script>
+    <script src="./Scripts/MapMethods/StyleMethods.js"></script>
+    <script src="./Scripts/MapMethods/BaseMapMethods.js"></script>
+    <script src="./Scripts/MapMethods/MapInitalMethods.js"></script>
+    <script src="./Scripts/MapMethods/EventMethods.js"></script>
+    <script src="Scripts/ChartMethods/option.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="Scripts/StringContral.js"></script>
+    <script src="Scripts/AboutTimeMethods.js"></script>
+    <script src="Scripts/getUrl.js"></script>
+    <script>
+
+        var GridsPolygon = [];
+        var timeOut = 0;
+        var index = 0;
+        var dateTime = "2022/08/10 00:00";
+
+        var dataType = "DOs";
+        const range = document.querySelector("#formControlRange");
+        const bubble = document.querySelector(".bubble");
+        var IsRunClick = false;
+        $(function () {
+            DigitalTime();
+            let now = new Date();
+            if (now.getMinutes() <= 36) {
+                dateTime = getfulltime(now, -1 * 3600, "yyyy-MM-dd HH:00");
+
+            } else {
+                dateTime = getfulltime(now, 0, "yyyy-MM-dd HH:00");
+            }
+            let vars = getUrlVars();
+            if (typeof (vars["datetime"]) != "undefined") {
+                dateTime = vars["datetime"].substring(0, 4) + "-" + vars["datetime"].substring(4, 6) + "-" + vars["datetime"].substring(6, 8) + " " + vars["datetime"].substring(8, 10) + ":00";
+            }
+
+            GetGrids();
+            GetValues();
+            GetAutoStations();
+            GetCWBStations();
+            GetInterceptstations();
+            $("#formControlRange").on("change", function () {
+                index = $("#formControlRange").val();
+                let Parks = [];
+                let warningVillages = [];
+                let dieFishRivers = [];
+                FishGroup.clearLayers();
+                villages.eachLayer((layer) => {
+                    layer.setStyle({ fillOpacity: 0 });
+                });
+                polygons.eachLayer(function (layer) {
+                    let dataIndex = $("#formControlRange").val();
+                    if (layer['dateTimes'] != undefined) {
+                        if (layer.name == $("#select-section :selected").val()) {
+                            document.querySelector('#text-dateTime').textContent = layer['dateTimes'][dataIndex];
+                            document.querySelector('#text-BOD').textContent = layer['BODs'][dataIndex] + " mg/L";
+                            document.querySelector('#text-DO').textContent = layer['DOs'][dataIndex] + " mg/L";
+                            document.querySelector('#text-RPI').textContent = layer['RPIs'][dataIndex];
+                        }
+                        layer.setStyle({ fillColor: getWarningColor(layer[dataType][dataIndex], dataType) });
+                        // for fish
+                        let name = SetDieFish(layer, layer['DOs'][dataIndex]);
+                        if (name.length > 0 && dieFishRivers.indexOf(name) < 0) {
+                            dieFishRivers.push(name);
+                        }
+
+                        //for village
+                        let layerVillages = SetVillageColor(layer["villages"], layer['DOs'][index]);
+                        warningVillages = warningVillages.concat(layerVillages);
+                        //for Parks
+                        let layerParks = GetNotToGoPark(layer, layer['DOs'][index]);
+                        Parks = Parks.concat(layerParks);
+                        layer.on("click", function (e) {
+                            let datas = e.target;
+                            document.querySelector('#text-dateTime').textContent = datas['dateTimes'][dataIndex];
+
+                            document.querySelector('#text-BOD').textContent = datas['BODs'][dataIndex] + " mg/L";
+                            document.querySelector('#text-DO').textContent = datas['DOs'][dataIndex] + " mg/L";
+                            document.querySelector('#text-RPI').textContent = layer['RPIs'][dataIndex];
+                        });
+                    }
+                });
+                dieFishRivers = [...new Set(dieFishRivers)];
+                if (dieFishRivers.length == 0) {
+                    $("#text-fish").text("--");
+                } else {
+                    $("#text-fish").text(dieFishRivers.join("、"));
+                }
+
+                warningVillages = [...new Set(warningVillages)];
+                if (warningVillages.length == 0) {
+                    $("#text-warningVillages").text("--");
+                } else {
+                    $("#text-warningVillages").text(warningVillages.join("、"));
+                }
+
+                Parks = [...new Set(Parks)];
+                if (Parks.length == 0) {
+                    $("#text-park").text("--");
+                } else {
+                    $("#text-park").text(Parks.join("、"));
+                }
+
+            });
+            $("#btn-run").on("click", () => {
+                if (!IsRunClick) {
+                    IsRunClick = true;
+                    run();
+                }
+            });
+            $("#btn-stop").on("click", () => {
+                IsRunClick = false;
+                stop();
+            });
+            $("input[name=radioItem]").on("change", () => {
+                dataType = $("input[name=radioItem]:checked").val();
+                polygons.eachLayer(function (layer) {
+                    if (layer['dateTimes'] != undefined) {
+                        layer.setStyle({ fillColor: getWarningColor(layer[dataType][index], dataType) });
+                    }
+                });
+                document.querySelector(".legendType").innerHTML = setMapLegendHtml(dataType);
+            });
+
+            $("#checkbox-CWB").on("change", () => {
+                if ($("#checkbox-CWB").prop("checked")) {
+                    CWBStationGroup.addTo(map);
+                } else {
+                    map.removeLayer(CWBStationGroup);
+                }
+            });
+            $("#checkbox-intercept").on("change", () => {
+                if ($("#checkbox-intercept").prop("checked")) {
+                    interceptStationGroup.addTo(map);
+                } else {
+                    map.removeLayer(interceptStationGroup);
+                }
+            });
+        });
+        function setBubble(range, bubble) {
+            const val = range.value;
+            const min = range.min ? range.min : 0;
+            const max = range.max ? range.max : 100;
+            const newVal = Number(((val - min) * 100) / (max - min));
+
+            bubble.innerHTML = getfulltime(new Date(dateTime), (val) * 600, "MM/dd HH:mm");
+
+            // Sorta magic numbers based on size of the native UI thumb
+            bubble.style.left = `calc(${newVal}% + (${8 - newVal * 0.15}px))`;
+        }
+
+
+        function run() {
+            index++;
+            $("#formControlRange").val(index);
+            let maxValues = $("#formControlRange").map(function () {
+                return this.max;
+            }).get();
+            if (index >= +maxValues) index = 0;
+            let Parks = [];
+            let warningVillages = [];
+            let dieFishRivers = [];
+            FishGroup.clearLayers();
+            villages.eachLayer((layer) => {
+
+                layer.setStyle({ fillOpacity: 0 });
+
+            });
+            polygons.eachLayer(function (layer) {
+                if (layer['dateTimes'] != undefined) {
+                    let stringtime = getfulltime(new Date(layer['dateTimes'][index]), 0, "yyyy-MM-dd HH:mm");
+
+                    document.querySelector('#text-dateTime').textContent = stringtime;
+
+                    document.querySelector('#text-BOD').textContent = layer['BODs'][index] + " mg/L";
+                    document.querySelector('#text-DO').textContent = layer['DOs'][index] + " mg/L";
+                    document.querySelector('#text-RPI').textContent = layer['RPIs'][index];
+                    layer.setStyle({ fillColor: getWarningColor(layer[dataType][index], dataType) });
+                    // for fish
+                    let name = SetDieFish(layer, layer['DOs'][index]);
+                    if (name.length > 0 && dieFishRivers.indexOf(name) < 0) {
+                        dieFishRivers.push(name);
+                    }
+                    //for village
+                    let layerVillages = SetVillageColor(layer["villages"], layer['DOs'][index]);
+                    warningVillages = warningVillages.concat(layerVillages);
+                    //for Parks
+                    let layerParks = GetNotToGoPark(layer, layer['DOs'][index]);
+                    Parks = Parks.concat(layerParks);
+                }
+            });
+            dieFishRivers = [...new Set(dieFishRivers)];
+            if (dieFishRivers.length == 0) {
+                $("#text-fish").text("--");
+            } else {
+                $("#text-fish").text(dieFishRivers.join("、"));
+            }
+
+            warningVillages = [...new Set(warningVillages)];
+            if (warningVillages.length == 0) {
+                $("#text-warningVillages").text("--");
+            } else {
+                $("#text-warningVillages").text(warningVillages.join("、"));
+            }
+
+            Parks = [...new Set(Parks)];
+            if (Parks.length == 0) {
+                $("#text-park").text("--");
+            } else {
+                $("#text-park").text(Parks.join("、"));
+            }
+
+
+
+            setBubble(range, bubble);
+            timeOut = setTimeout("run()", 1000);
+        }
+
+        function stop() {
+            if (timeOut) {
+                clearTimeout(timeOut);
+                timeOut = 0;
+            }
+        }
+
+
+
+        function GetGrids() {
+            $.ajax({
+                url: "./asp/getSectionCoordinates.aspx",
+                type: "GET",
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    let Grids = {};
+                    sortSections.forEach((river) => {
+                        let sections = river.sort.split(",");
+                        Grids[river.river] = {};
+                        Grids[river.river]["coor"] = [];
+                        Grids[river.river]["name"] = [];
+                        Grids[river.river]["villages"] = [];
+                        for (let i = 0; i < sections.length - 1; i++) {
+                            let frontIndex = data.findIndex(x => x.name == sections[i]);
+                            let afterIndex = data.findIndex(x => x.name == sections[i + 1]);
+                            if (frontIndex >= 0 && afterIndex >= 0) {
+                                Grids[river.river]["coor"].push([SetSquarePolygon(data[frontIndex].coordinates[0],
+                                    data[frontIndex].coordinates[1],
+                                    data[afterIndex].coordinates[0],
+                                    data[afterIndex].coordinates[1])]);
+                                Grids[river.river]["name"].push(data[afterIndex].name + "-" + data[frontIndex].name);
+
+                                Grids[river.river]["villages"].push(data[afterIndex].villages.concat(data[frontIndex].villages));
+                            }
+
+                        }
+
+                    });
+
+                    let rivers = Object.keys(Grids);
+                    for (let i = 0; i < rivers.length; i++) {
+                        let river = rivers[i];
+                        Grids[river]["coor"].forEach((feature, index) => {
+                            let jsonPolygon = turf.polygon(feature);
+                            let layer = L.geoJson(jsonPolygon, {
+                                style: LineStyle
+                            }).addTo(polygons);
+                            layer["name"] = Grids[river]["name"][index];
+                            layer["villages"] = Grids[river]["villages"][index];
+                            layer.bindPopup('<h3 class="text-center">' + layer.name + '</h3><div class="d-none" id="chart-BOD-' + layer.name.replaceAll(".", "") + '"></div><div id="chart-DO-' + layer.name.replaceAll(".", "") + '"></div>',
+                                {
+
+                                    minWidth: 400,
+                                    autoPan: true,
+                                    autoPanPaddingTopLeft: L.point(200, 300)
+
+                                });
+                        });
+                    }
+                },
+                error: function (xhr, status, errorThrow) {
+                    alert("連線時間超過5秒! ");
+                },
+                complete: function () {
+                }
+            });
+        }
+        function GetValues() {
+            $.ajax({
+                url: "./asp/getWaterQualityData.aspx",
+                type: "GET",
+                async: false,
+                data: {
+                    initDateTime: dateTime
+                },
+                dataType: "json",
+                success: function (data) {
+                    document.querySelector(".legendType").innerHTML = setMapLegendHtml(dataType);
+                    let rivers = Object.keys(data);
+                    let Parks = [];
+                    let warningVillages = [];
+                    let dieFishRivers = [];
+                    FishGroup.clearLayers();
+                    villages.eachLayer((layer) => {
+
+                        layer.setStyle({ fillOpacity: 0 });
+
+                    });
+                    rivers.forEach((river) => {
+                        let names = Object.keys(data[river]);
+
+                        polygons.eachLayer(function (layer) {
+
+                            let index = names.findIndex(x => x == layer.name);
+                            if (index >= 0) {
+
+                                $("#formControlRange")[0].max = String(data[river][layer.name].dateTimes.length - 1);
+                                layer["dateTimes"] = data[river][layer.name].dateTimes;
+                                layer["BODs"] = data[river][layer.name].BODs;
+                                layer["DOs"] = data[river][layer.name].DOs;
+                                layer["RPIs"] = data[river][layer.name].RPIs;
+                                appendOptions("select-section", layer.name, layer.name);
+                                let dataIndex = $("#formControlRange").val();
+                                let stringtime = getfulltime(new Date(layer['dateTimes'][index]), 0, "yyyy-MM-dd HH:mm");
+                                document.querySelector('#text-dateTime').textContent = stringtime;
+
+                                $("#select-section").val(layer.name);
+                                document.querySelector('#text-BOD').textContent = layer['BODs'][dataIndex] + " mg/L";
+                                document.querySelector('#text-DO').textContent = layer['DOs'][dataIndex] + " mg/L";
+                                document.querySelector('#text-RPI').textContent = layer['RPIs'][dataIndex];
+
+                                layer.setStyle({ fillColor: getWarningColor(layer[dataType][dataIndex], dataType) });
+                                // for fish
+                                let name = SetDieFish(layer, layer['DOs'][dataIndex]);
+                                if (name.length > 0 && dieFishRivers.indexOf(name) < 0) {
+                                    dieFishRivers.push(name);
+                                }
+
+
+                                //for village
+                                let layerVillages = SetVillageColor(layer["villages"], layer['DOs'][dataIndex]);
+                                warningVillages = warningVillages.concat(layerVillages);
+                                //for Parks
+                                let layerParks = GetNotToGoPark(layer, layer['DOs'][dataIndex]);
+                                Parks = Parks.concat(layerParks);
+
+                                //for chart
+                                let series = [];
+                                series.push({
+                                    name: "計算水中氧氣",
+                                    type: 'line',
+                                    data: setTimeSeriers(layer['dateTimes'], layer['DOs'])
+                                });
+                                layer["Option-DO"] = setOption(series, "計算水中氧氣", ["#0026c9"])
+
+
+                                series = [];
+                                series.push({
+                                    name: "BOD",
+                                    type: 'line',
+                                    data: setTimeSeriers(layer['dateTimes'], layer['BODs'])
+                                });
+                                layer["Option-BOD"] = setOption(series, "BOD", ["#0026c9"])
+
+                                layer.on("click", function (e) {
+
+                                    let datas = e.target;
+                                    let stringtime = getfulltime(new Date(datas['dateTimes'][dataIndex]), 0, "yyyy-MM-dd HH:mm");
+                                    document.querySelector('#text-dateTime').textContent = stringtime;
+
+                                    $("#select-section").val(datas.name);
+                                    document.querySelector('#text-BOD').textContent = datas['BODs'][dataIndex] + " mg/L";
+                                    document.querySelector('#text-DO').textContent = datas['DOs'][dataIndex] + " mg/L";
+                                    document.querySelector('#text-RPI').textContent = layer['RPIs'][dataIndex];
+                                    layer["chart-BOD"] = new ApexCharts(document.querySelector('#chart-BOD-' + layer.name.replaceAll(".", "")), layer["Option-BOD"])
+                                    layer["chart-DO"] = new ApexCharts(document.querySelector('#chart-DO-' + layer.name.replaceAll(".", "")), layer["Option-DO"])
+                                    layer["chart-DO"].render();
+                                    layer["chart-BOD"].render();
+
+                                });
+                            }
+                        });
+
+                    });
+
+                    dieFishRivers = [...new Set(dieFishRivers)];
+                    if (dieFishRivers.length == 0) {
+                        $("#text-fish").text("--");
+                    } else {
+                        $("#text-fish").text(dieFishRivers.join("、"));
+                    }
+
+                    warningVillages = [...new Set(warningVillages)];
+                    if (warningVillages.length == 0) {
+                        $("#text-warningVillages").text("--");
+                    } else {
+                        $("#text-warningVillages").text(warningVillages.join("、"));
+                    }
+
+                    Parks = [...new Set(Parks)];
+                    if (Parks.length == 0) {
+                        $("#text-park").text("--");
+                    } else {
+                        $("#text-park").text(Parks.join("、"));
+                    }
+
+
+                    $("#select-section").on("change", () => {
+                        polygons.eachLayer((layer) => {
+                            if (layer.name == $("#select-section :selected").val()) {
+                                let dataIndex = $("#formControlRange").val();
+                                document.querySelector('#text-dateTime').textContent = layer['dateTimes'][dataIndex];
+                                document.querySelector('#text-BOD').textContent = layer['BODs'][dataIndex] + " mg/L";
+                                document.querySelector('#text-DO').textContent = layer['DOs'][dataIndex] + " mg/L";
+                                document.querySelector('#text-RPI').textContent = layer['RPIs'][dataIndex];
+                            }
+                        });
+                    });
+
+                    range.addEventListener("input", () => {
+                        setBubble(range, bubble);
+                    });
+                    setBubble(range, bubble);
+                },
+                error: function (xhr, status, errorThrow) {
+                    alert("連線時間超過5秒! ");
+                },
+                complete: function () {
+                }
+            });
+        }
+
+        function SetDieFish(layer, value) {
+            let riverid = ["TE", "H", "KE"];
+            let riverName = ["淡水河", "新店溪", "基隆河"];
+            let name = "";
+            if (value < 0.5) {
+                let polygon = [];
+                layer.eachLayer((x) => {
+                    polygon = turf.polygon(x.feature.geometry.coordinates);
+                });
+                let centroid = turf.centroid(polygon);
+                setMarker([centroid.geometry.coordinates[0], centroid.geometry.coordinates[1]], "", FishGroup, setDivIcon("./images/exclamationMark.png", ""), false);
+                let index = riverid.findIndex(x => layer.name.indexOf(x) >= 0);
+                name = riverName[index];
+            }
+
+            return name;
+
+        }
+
+        function GetNotToGoPark(sectionLayer, value) {
+            let places = [];
+            Parks.eachLayer((layer) => {
+                var sectionlay = [];
+                sectionLayer.eachLayer((ly) => {
+                    sectionlay = turf.polygon(ly.feature.geometry.coordinates);
+                });
+
+                var park = turf.polygon(layer.feature.geometry.coordinates[0]);
+                if (turf.booleanOverlap(park, sectionlay) && value < 0.3) {
+                    places.push(layer.feature.properties.District + layer.feature.properties.Park);
+                }
+            });
+            return places;
+        }
+        function SetVillageColor(village, value) {
+            let layerVillages = [];
+            villages.eachLayer((layer) => {
+                let index = village.findIndex(x => x == layer.feature.properties.VILLCODE);
+
+                if (index >= 0 && value < 0.3 && layer.feature.properties.VILLNAME != null) {
+                    layer.setStyle({ fillColor: getWarningColor(value, "DOs"), fillOpacity: 0.3 });
+                    layerVillages.push(layer.feature.properties.TOWNNAME + layer.feature.properties.VILLNAME)
+                }
+            });
+            return layerVillages;
+        }
+        function GetCWBStations() {
+            $.ajax({
+                url: "./asp/getCWBStationsData.aspx",
+                type: "GET",
+                data: {
+                    stations: "466880,466920,466900",
+                    item: "O-A0003-001"
+                },
+                dataType: "json",
+                success: function (data) {
+                    data.forEach((station) => {
+                        let datetime = getfulltime(new Date(station.dateTime), 0, "MM/dd HH:mm");
+                        let message = `${station.name}</br>${datetime}</br>${station.temp}度</br>${(station.humd * 100).toFixed(0)}%`;
+                        setMarker([station.lng, station.lat], station.name, CWBStationGroup, setDivIcon("./images/rain_Weather_B.png", message), true);
+                    });
+
+                },
+                error: function (xhr, status, errorThrow) {
+                    alert("連線時間超過5秒! ");
+                },
+                complete: function () {
+                }
+            });
+            $.ajax({
+                url: "./asp/getCWBStationsData.aspx",
+                type: "GET",
+                data: {
+                    stations: "C0A9F0,C0AC60,C0AC70,C0AC80,C0ACA0,C0AD10,C0AD30,C0AD40,C0AD50,C0AG80,C0AH10",
+                    item: "O-A0001-001"
+                },
+                dataType: "json",
+                success: function (data) {
+                    data.forEach((station) => {
+                        let datetime = getfulltime(new Date(station.dateTime), 0, "MM/dd HH:mm");
+                        let message = `${station.name}</br>${datetime}</br>${station.temp}度</br>${(station.humd * 100).toFixed(0)}%`;
+                        let marker = setMarker([station.lng, station.lat], station.name, CWBStationGroup, setDivIcon("./images/rain_Weather_B.png", message), true);
+
+                    });
+
+                },
+                error: function (xhr, status, errorThrow) {
+                    alert("連線時間超過5秒! ");
+                },
+                complete: function () {
+                }
+            });
+        }
+        function GetAutoStations() {
+            $.ajax({
+                url: "./asp/getObsWaterQualityData.aspx",
+                type: "GET",
+                data: {
+                    initDateTime: dateTime
+                },
+                dataType: "json",
+                success: function (data) {
+                    autoStations.forEach((station) => {
+                        let marker = setMarker(station.coodinates, station.name, autoStationGroup, icon, true);
+                        marker["dateTimes"] = data[station.name].dateTimes;
+                        marker["DOs"] = data[station.name].DOs;
+                        marker.bindPopup('<h3 class="text-center">' + station.name + '</h3><div id="chart-STA-DO-' + station.code + '"></div>',
+                            {
+                                minWidth: 400,
+                                autoPan: true,
+                                autoPanPaddingTopLeft: L.point(200, 300)
+                            });
+                        marker.on("click", function (e) {
+                            let datas = e.target;
+                            let series = [];
+                            series.push({
+                                name: "觀測水中氧氣",
+                                type: 'line',
+                                data: setTimeSeriers(datas["dateTimes"], datas["DOs"])
+                            });
+                            let DOoptions = setOption(series, "觀測水中氧氣", ["#0026c9"])
+                            marker["chart-STA-DO"] = new ApexCharts(document.querySelector('#chart-STA-DO-' + station.code), DOoptions)
+                            marker["chart-STA-DO"].render();
+                        });
+                        polygons.eachLayer(function (layer) {
+                            if (station.sectionRelation == layer.name) {
+                                layer["Option-DO"].colors.push("#ff0000");
+                                layer["Option-DO"].series.push({
+                                    name: "觀測水中氧氣",
+                                    type: 'line',
+                                    data: setTimeSeriers(marker["dateTimes"], marker["DOs"])
+                                });
+
+                            }
+                        });
+
+                    });
+
+                },
+                error: function (xhr, status, errorThrow) {
+                    alert("連線時間超過5秒! ");
+                },
+                complete: function () {
+                }
+            });
+
+
+        }
+        function GetInterceptstations() {
+            interceptStations.forEach((station) => {
+
+                let message = `${station.name}</br>${station.description}`;
+                setMarker(station.coodinates, station.name, interceptStationGroup, setDivIcon("./images/Pumping-Station2.png", message), true);
+
+            });
+        }
+        function DigitalTime() {
+            let d = new Date()
+            let StringTime = getfulltime(d, 0, "MM/dd HH:mm:SS")
+            document.querySelector('#text-timenow').innerHTML = "現在時間: " + StringTime;
+            setTimeout("DigitalTime()", 1000)
+        }
+
+
+        //set select option
+        function appendOptions(id, value, innerHtml) {
+            let select = document.querySelector("#" + id);
+            let option = document.createElement("option");
+            option.value = value;
+            option.innerHTML = innerHtml;
+            select.appendChild(option);
+        }
+
+
+        //draw Square
+        function SetSquarePolygon(frontTM67Leftcoordinate,
+            frontTM67Rightcoordinate,
+            afterTM67Leftcoordinate,
+            afterTM67Rightcoordinate) {
+
+            let frontWGS84LeftCoordinate = TransCoord(frontTM67Leftcoordinate[0], frontTM67Leftcoordinate[1], EPSG3828, EPSG4326);
+            let frontWGS84RightCoordinate = TransCoord(frontTM67Rightcoordinate[0], frontTM67Rightcoordinate[1], EPSG3828, EPSG4326);
+            let afterWGS84LeftCoordinate = TransCoord(afterTM67Leftcoordinate[0], afterTM67Leftcoordinate[1], EPSG3828, EPSG4326);
+            let afterWGS84RightCoordinate = TransCoord(afterTM67Rightcoordinate[0], afterTM67Rightcoordinate[1], EPSG3828, EPSG4326);
+
+            let polygon = [
+                [frontWGS84LeftCoordinate[0], frontWGS84LeftCoordinate[1]],
+                [frontWGS84RightCoordinate[0], frontWGS84RightCoordinate[1]],
+                [afterWGS84RightCoordinate[0], afterWGS84RightCoordinate[1]],
+                [afterWGS84LeftCoordinate[0], afterWGS84LeftCoordinate[1]],
+                [frontWGS84LeftCoordinate[0], frontWGS84LeftCoordinate[1]]
+            ];
+            return polygon;
+        }
+    </script>
+
+</body>
+</html>
