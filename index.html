@@ -582,7 +582,7 @@
 
         function GetGrids() {
             $.ajax({
-                url: "./asp/getSectionCoordinates.aspx",
+                url: "https://211.23.167.207/HKTD/asp/getSectionCoordinates.aspx",
                 type: "GET",
                 dataType: "json",
                 async: false,
@@ -641,7 +641,7 @@
         }
         function GetValues() {
             $.ajax({
-                url: "./asp/getWaterQualityData.aspx",
+                url: "https://211.23.167.207/HKTD/asp/getWaterQualityData.aspx",
                 type: "GET",
                 async: false,
                 data: {
@@ -832,7 +832,7 @@
         }
         function GetCWBStations() {
             $.ajax({
-                url: "./asp/getCWBStationsData.aspx",
+                url: "https://211.23.167.207/HKTD/asp/getCWBStationsData.aspx",
                 type: "GET",
                 data: {
                     stations: "466880,466920,466900",
@@ -854,7 +854,7 @@
                 }
             });
             $.ajax({
-                url: "./asp/getCWBStationsData.aspx",
+                url: "https://211.23.167.207/HKTD/asp/getCWBStationsData.aspx",
                 type: "GET",
                 data: {
                     stations: "C0A9F0,C0AC60,C0AC70,C0AC80,C0ACA0,C0AD10,C0AD30,C0AD40,C0AD50,C0AG80,C0AH10",
@@ -879,7 +879,7 @@
         }
         function GetAutoStations() {
             $.ajax({
-                url: "./asp/getObsWaterQualityData.aspx",
+                url: "https://211.23.167.207/HKTD/asp/getObsWaterQualityData.aspx",
                 type: "GET",
                 data: {
                     initDateTime: dateTime
