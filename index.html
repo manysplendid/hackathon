@@ -407,7 +407,10 @@
                     let dataIndex = $("#formControlRange").val();
                     if (layer['dateTimes'] != undefined) {
                         if (layer.name == $("#select-section :selected").val()) {
-                            document.querySelector('#text-dateTime').innerHTML = layer['dateTimes'][dataIndex];
+                            let arr = layer['dateTimes'][dataIndex].split(/[- :]/);
+                            let datetime = new Date(arr[0], arr[1]-1, arr[2], arr[3], arr[4], arr[5]);
+                            document.querySelector('#text-dateTime').innerHTML = getfulltime(datetime,0,"yyyy-MM-dd HH:mm");
+
                             document.querySelector('#text-BOD').textContent = layer['BODs'][dataIndex] + " mg/L";
                             document.querySelector('#text-DO').textContent = layer['DOs'][dataIndex] + " mg/L";
                             document.querySelector('#text-RPI').textContent = layer['RPIs'][dataIndex];
@@ -427,8 +430,10 @@
                         Parks = Parks.concat(layerParks);
                         layer.on("click", function (e) {
                             let datas = e.target;
-                            document.querySelector('#text-dateTime').innerHTML = datas['dateTimes'][dataIndex];
-
+                            let arr = datas['dateTimes'][dataIndex].split(/[- :]/);
+                            let datetime = new Date(arr[0], arr[1] - 1, arr[2], arr[3], arr[4], arr[5]);
+                            document.querySelector('#text-dateTime').innerHTML = getfulltime(datetime, 0, "yyyy-MM-dd HH:mm");
+ 
                             document.querySelector('#text-BOD').textContent = datas['BODs'][dataIndex] + " mg/L";
                             document.querySelector('#text-DO').textContent = datas['DOs'][dataIndex] + " mg/L";
                             document.querySelector('#text-RPI').textContent = layer['RPIs'][dataIndex];
@@ -523,9 +528,10 @@
             });
             polygons.eachLayer(function (layer) {
                 if (layer['dateTimes'] != undefined) {
-                    let stringtime = getfulltime(new Date(layer['dateTimes'][index]), 0, "yyyy-MM-dd HH:mm");
+                    let arr = layer['dateTimes'][index].split(/[- :]/);
+                    let datetime = new Date(arr[0], arr[1] - 1, arr[2], arr[3], arr[4], arr[5]);
+                    document.querySelector('#text-dateTime').innerHTML = getfulltime(datetime, 0, "yyyy-MM-dd HH:mm");
 
-                    document.querySelector('#text-dateTime').innerHTML = stringtime;
 
                     document.querySelector('#text-BOD').textContent = layer['BODs'][index] + " mg/L";
                     document.querySelector('#text-DO').textContent = layer['DOs'][index] + " mg/L";
@@ -675,8 +681,10 @@
                                 layer["RPIs"] = data[river][layer.name].RPIs;
                                 appendOptions("select-section", layer.name, layer.name);
                                 let dataIndex = $("#formControlRange").val();
-                                let stringtime = getfulltime(new Date(layer['dateTimes'][index]), 0, "yyyy-MM-dd HH:mm");
-                                document.querySelector('#text-dateTime').innerHTML = stringtime;
+                                let arr = layer['dateTimes'][index].split(/[- :]/);
+                                let datetime = new Date(arr[0], arr[1] - 1, arr[2], arr[3], arr[4], arr[5]);
+                                document.querySelector('#text-dateTime').innerHTML = getfulltime(datetime, 0, "yyyy-MM-dd HH:mm");
+
 
                                 $("#select-section").val(layer.name);
                                 document.querySelector('#text-BOD').textContent = layer['BODs'][dataIndex] + " mg/L";
@@ -719,8 +727,10 @@
                                 layer.on("click", function (e) {
 
                                     let datas = e.target;
-                                    let stringtime = getfulltime(new Date(datas['dateTimes'][dataIndex]), 0, "yyyy-MM-dd HH:mm");
-                                    document.querySelector('#text-dateTime').innerHTML = stringtime;
+                                    let arr = datas['dateTimes'][dataIndex].split(/[- :]/);
+                                    let datetime = new Date(arr[0], arr[1] - 1, arr[2], arr[3], arr[4], arr[5]);
+                                    document.querySelector('#text-dateTime').innerHTML = getfulltime(datetime, 0, "yyyy-MM-dd HH:mm");
+
 
                                     $("#select-section").val(datas.name);
                                     document.querySelector('#text-BOD').textContent = datas['BODs'][dataIndex] + " mg/L";
@@ -763,7 +773,10 @@
                         polygons.eachLayer((layer) => {
                             if (layer.name == $("#select-section :selected").val()) {
                                 let dataIndex = $("#formControlRange").val();
-                                document.querySelector('#text-dateTime').innerHTML = layer['dateTimes'][dataIndex];
+                                let arr = layer['dateTimes'][dataIndex].split(/[- :]/);
+                                let datetime = new Date(arr[0], arr[1] - 1, arr[2], arr[3], arr[4], arr[5]);
+                                document.querySelector('#text-dateTime').innerHTML = getfulltime(datetime, 0, "yyyy-MM-dd HH:mm");
+
                                 document.querySelector('#text-BOD').textContent = layer['BODs'][dataIndex] + " mg/L";
                                 document.querySelector('#text-DO').textContent = layer['DOs'][dataIndex] + " mg/L";
                                 document.querySelector('#text-RPI').textContent = layer['RPIs'][dataIndex];
