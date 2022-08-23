@@ -887,7 +887,7 @@
                 dataType: "json",
                 success: function (data) {
                     autoStations.forEach((station) => {
-                        let marker = setMarker(station.coodinates, station.name, autoStationGroup, icon, true);
+                        let marker = setMarker(station.coodinates, station.name, autoStationGroup, setDivIcon("./images/autostation.svg", ""), true);
                         marker["dateTimes"] = data[station.name].dateTimes;
                         marker["DOs"] = data[station.name].DOs;
                         marker.bindPopup('<h3 class="text-center">' + station.name + '</h3><div id="chart-STA-DO-' + station.code + '"></div>',
