@@ -502,8 +502,10 @@
             const min = range.min ? range.min : 0;
             const max = range.max ? range.max : 100;
             const newVal = Number(((val - min) * 100) / (max - min));
-
-            bubble.innerHTML = getfulltime(new Date(dateTime), (val) * 600, "MM/dd HH:mm");
+            let arr = dateTime.split(/[- :]/);
+            let time = new Date(+arr[0], +arr[1] - 1, +arr[2], +arr[3], +arr[4]);
+            
+            bubble.innerHTML = getfulltime(time, (val) * 600, "MM/dd HH:mm");
 
             // Sorta magic numbers based on size of the native UI thumb
             bubble.style.left = `calc(${newVal}% + (${8 - newVal * 0.15}px))`;
