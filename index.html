@@ -711,7 +711,7 @@
                                 //for chart
                                 let series = [];
                                 series.push({
-                                    name: "計算水中氧氣",
+                                    name: "DO",
                                     type: 'line',
                                     data: setTimeSeriers(layer['dateTimes'], layer['DOs'])
                                 });
@@ -738,10 +738,11 @@
                                     document.querySelector('#text-BOD').textContent = datas['BODs'][dataIndex] + " mg/L";
                                     document.querySelector('#text-DO').textContent = datas['DOs'][dataIndex] + " mg/L";
                                     document.querySelector('#text-RPI').textContent = layer['RPIs'][dataIndex];
-                                    layer["chart-BOD"] = new ApexCharts(document.querySelector('#chart-BOD-' + layer.name.replaceAll(".", "")), layer["Option-BOD"])
                                     layer["chart-DO"] = new ApexCharts(document.querySelector('#chart-DO-' + layer.name.replaceAll(".", "")), layer["Option-DO"])
+                                    //layer["chart-BOD"] = new ApexCharts(document.querySelector('#chart-BOD-' + layer.name.replaceAll(".", "")), layer["Option-BOD"])
+                                    
                                     layer["chart-DO"].render();
-                                    layer["chart-BOD"].render();
+                                    //layer["chart-BOD"].render();
 
                                 });
                             }

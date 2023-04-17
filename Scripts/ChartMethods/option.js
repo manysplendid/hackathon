@@ -40,8 +40,28 @@
         },
         yaxis: [
             {
+            seriesName: 'DO',
+            show: false,
+            opposite: true,
+            axisTicks: {
+                show: true,
+            },
+
+            labels: {
+                style: {
+                    colors: '#000',
+                },
+                formatter: (value) => { return value.toFixed(2); }
+            },
+            title: {
+                text: "DO",
+                style: {
+                    color: '#000',
+                }
+            },
+        },
+            {
                 seriesName: 'BOD',
-                
                 axisTicks: {
                     show: true,
                 },
@@ -59,26 +79,7 @@
                     }
                 },
             },
-            {
-                seriesName: '計算水中氧氣',
-                show: false,
-                opposite: true,
-                axisTicks: {
-                    show: true,
-                },
-
-                labels: {
-                    style: {
-                        colors: '#000',
-                    }
-                },
-                title: {
-                    text: "DO",
-                    style: {
-                        color: '#000',
-                    }
-                },
-            },
+            
             {
                 seriesName: '觀測水中氧氣',
                 show: false,
@@ -103,7 +104,7 @@
         tooltip: {
             x: {
                 show: true,
-                format: 'yyyy/MM/dd HH:mm'
+                format: 'yyyy/MM/dd HH:mm:ss'
 
             },
             fixed: {
@@ -123,7 +124,7 @@
 
 function setTimeSeriers(times, values) {
     let data = [];
-    for (let i = 0; i < times.length; i++) {
+    for (let i = 0; i < times.length; i++) { //
         let number = 0;
         if (typeof (values[i]) == 'number') {
             number = values[i];
