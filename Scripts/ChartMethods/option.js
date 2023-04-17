@@ -38,11 +38,11 @@
                 },
             }
         },
-        yaxis: [
+        yaxis: 
             {
-            seriesName: 'DO',
-            show: false,
-            opposite: true,
+            
+            show: true,
+            opposite: false,
             axisTicks: {
                 show: true,
             },
@@ -54,53 +54,12 @@
                 formatter: (value) => { return value.toFixed(2); }
             },
             title: {
-                text: "DO",
+                text: "mg/L",
                 style: {
                     color: '#000',
                 }
             },
         },
-            {
-                seriesName: 'BOD',
-                axisTicks: {
-                    show: true,
-                },
-
-                labels: {
-                    style: {
-                        colors: '#000',
-                    },
-                    formatter: (value) => { return value.toFixed(2); }
-                },
-                title: {
-                    text: "mg/L",
-                    style: {
-                        color: '#000',
-                    }
-                },
-            },
-            
-            {
-                seriesName: '觀測水中氧氣',
-                show: false,
-                opposite: true,
-                axisTicks: {
-                    show: true,
-                },
-
-                labels: {
-                    style: {
-                        colors: '#000',
-                    }
-                },
-                title: {
-                    text: "觀測DO",
-                    style: {
-                        color: '#000',
-                    }
-                },
-            }
-        ],
         tooltip: {
             x: {
                 show: true,
